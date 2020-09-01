@@ -1,3 +1,3 @@
 create database mydb;
-CREATE TABLE mydb.mytab ( id int  not null auto_increment, sal int, constraint pk_example primary key (id) );
+CREATE TABLE mydb.mytab3 ( id int, name varchar(20), salary int );
 GRANT DROP,CREATE,ALTER,SELECT,INSERT,UPDATE,DELETE,LOCK TABLES,EXECUTE ON *.* TO mysql@'%';

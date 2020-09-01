@@ -13,7 +13,7 @@ export table=$2
 export databasenm=$3
 
 export KafkaBootstrapIP=`kubectl get all -n kafka | grep -i mykafka-kafka-external-bootstrap | awk '{print $4}'`
-
+export mySQLIP=`kubectl get svc | grep -i mysql | awk '{print $4}'`
 KUBERNET_IP=`kubectl exec -it deployment.apps/spark-master -n $SPARK_NAMESPACE  -- /bin/bash -c printenv | grep -i KUBERNETES_PORT_443_TCP_ADDR | cut -d "="  -f2`
 K8ip="k8s://https://${KUBERNET_IP::-1}"
 #echo $K8ip
@@ -33,7 +33,7 @@ kubectl exec -it deployment.apps/spark-master -n $SPARK_NAMESPACE -- /bin/bash -
   --conf spark.executor.instances=2  \
   --conf spark.kubernetes.container.image=$DOCKER_IMAGE  \
   --conf spark.kubernetes.container.image.pullPolicy=Always \
-  local:///opt/spark/examples/jars/mygcp-1.0-SNAPSHOT.jar $topic $KafkaBootstrapIP $table $databasenm "
+  local:///opt/spark/examples/jars/mygcp-1.0-SNAPSHOT.jar $topic $KafkaBootstrapIP $table $databasenm $mySQLIP"
 
 
 
