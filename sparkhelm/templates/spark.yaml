@@ -4,7 +4,7 @@ metadata:
   labels:
     name: spark-master
   name: spark-master
-  namespace: sparktst4
+  namespace: sparktst5
 spec:
   replicas: 1
   template:
