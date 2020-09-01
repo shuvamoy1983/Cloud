@@ -1,5 +1,5 @@
 #!/bin/bash
-export SPARK_NAMESPACE=sparktst4
+export SPARK_NAMESPACE=sparktst5
 export SA=spark-exes
 export K8S_CACERT=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 export K8S_TOKEN=/var/run/secrets/kubernetes.io/serviceaccount/token
