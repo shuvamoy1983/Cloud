@@ -118,16 +118,16 @@ pipeline {
                                  sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
 				 sh "kubectl create ns sparktst5"	    
                                  sh "helm install sparkhelm/. --generate-name -n sparktst5"
-				 sh "sleep 30"
-				 sh "sh spark.sh  "topic2" "mytab3" "mydb""
+				 sh "sleep 60"
+				 
 			    }
 			    else 
 			    {
 				 sh "aws eks --region us-east-1 update-kubeconfig --name eks"
 				 sh "kubectl create ns sparktst5"	    
                                  sh "helm install sparkhelm/. --generate-name -n sparktst5"
-				 sh "sleep 30"
-				 sh "sh spark.sh  "topic2" "mytab3" "mydb""
+				 sh "sleep 60"
+				
 			    }
                          }
                  }
@@ -135,16 +135,16 @@ pipeline {
 	    
 	     stage('Run spark Application') {
                 when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
                    }
                    steps {
 		     script {
 	                    if (provider == 'gcp') {
-				 sh "sh spark.sh  "topic2" "mytab3" "mydb""
+				 sh "sh spark.sh  "topic2" "mytab" "mydb""
 			    }
 			    else 
 			    {
-				sh "sh spark.sh  "topic2" "mytab3" "mydb""
+				sh "sh spark.sh  "topic2" "mytab" "mydb""
 			    }
                          }
                  }
