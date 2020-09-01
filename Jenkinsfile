@@ -140,6 +140,7 @@ pipeline {
                    steps {
 		     script {
 	                    if (provider == 'gcp') {
+				 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
 				 sh "./spark.sh  "topic2" "mytab" "mydb""
 			    }
 			    else 
