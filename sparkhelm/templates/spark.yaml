@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: spark-master
+  name: spark-master
+  namespace: sparktst4
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: spark-master
+    spec:
+      serviceAccountName: spark-drv
+      containers:
+      - name : spark-master
+        image: shuvamoy008/sparkops
+        imagePullPolicy: "IfNotPresent"
+        name: spark-master
+        ports:
+        - containerPort: 7077
+          protocol: TCP
+        command:
+         - "/bin/bash"
+         - "-c"
+         - "--"
+        args :
+         - './bin/bash ; sleep infinity'
