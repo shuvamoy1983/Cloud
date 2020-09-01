@@ -20,7 +20,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: spark-drv
-  namespace: sparktst4
+  namespace: sparktst5
 roleRef:
   kind: ClusterRole
   name: spark-cluster-rolebnd
