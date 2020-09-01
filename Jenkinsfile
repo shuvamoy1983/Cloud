@@ -141,8 +141,7 @@ pipeline {
 		     script {
 	                    if (provider == 'gcp') {
 				 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
-				 sh " KUBERNET_IP=`kubectl exec -it deployment.apps/spark-master -n sparktst5  -- /bin/bash -c printenv | grep -i KUBERNETES_PORT_443_TCP_ADDR | cut -d "="  -f2`"
-				 sh "echo $KUBERNET_IP" 
+				 bash " ./spark.sh  "topic2" "mytab3" "mydb""
 				 
 			    }
 			    else 
