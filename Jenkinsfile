@@ -141,7 +141,7 @@ pipeline {
 		     script {
 	                    if (provider == 'gcp') {
 				 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
-				 bash "./spark.sh  "topic2" "mytab" "mydb""
+				 sh "bash spark.sh  "topic2" "mytab" "mydb""
 			    }
 			    else 
 			    {
