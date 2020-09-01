@@ -26,7 +26,7 @@ pipeline {
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
-                expression { params.ACTION == 'true' }
+                expression { params.ACTION == 'false' }
                }
               steps {
 	         sh "sh ${script} ${provider}"
@@ -35,7 +35,7 @@ pipeline {
 
            stage('Deploy strimzi') {
              when {
-                expression {  params.ACTION == 'true' }
+                expression {  params.ACTION == 'false' }
                  }
                
 		  steps {
@@ -45,7 +45,7 @@ pipeline {
 			       sh "kubectl create ns kafka"	    
                                sh "helm repo add strimzi https://strimzi.io/charts/"
                                sh "helm install strimzi/strimzi-kafka-operator --generate-name -n kafka"
-			       sh "sleep 30"
+		               sh "sleep 30"
                                sh "helm install kafkachart/. --generate-name -n kafka"
                                  }
 		            else {
@@ -63,7 +63,7 @@ pipeline {
 	    
 	   stage('Build Docker Image') {
             when {
-                expression { params.ACTION == 'true' || params.ACTION == 'false'}
+                expression { params.ACTION == 'false'}
             }
             steps {
                 script {
@@ -73,7 +73,7 @@ pipeline {
         }
           stage('Push Docker Image') {
             when {
-                 expression { params.ACTION == 'true' || params.ACTION == 'false'}
+                 expression { params.ACTION == 'false' }
             }
             steps {
                 script {
@@ -88,7 +88,7 @@ pipeline {
 	    
 	   stage('Push mysql Images') {
             when {
-                 expression { params.ACTION == 'true' }
+                 expression { params.ACTION == 'false' }
             }
             steps {
 		    script {
@@ -110,7 +110,7 @@ pipeline {
 	    }
 	      stage('deploy helm for spark') {
                 when {
-                 expression { params.ACTION == 'true' }
+                 expression { params.ACTION == 'false' }
                    }
                    steps {
 		     script {
@@ -128,6 +128,23 @@ pipeline {
                                  sh "helm install sparkhelm/. --generate-name -n sparktst5"
 				 sh "sleep 30"
 				 sh "sh spark.sh  "topic2" "mytab3" "mydb""
+			    }
+                         }
+                 }
+	    }
+	    
+	     stage('Run spark Application') {
+                when {
+                 expression { params.ACTION == 'false' }
+                   }
+                   steps {
+		     script {
+	                    if (provider == 'gcp') {
+				 sh "sh spark.sh  "topic2" "mytab3" "mydb""
+			    }
+			    else 
+			    {
+				sh "sh spark.sh  "topic2" "mytab3" "mydb""
 			    }
                          }
                  }
