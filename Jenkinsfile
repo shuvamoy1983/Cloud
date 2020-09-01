@@ -140,14 +140,14 @@ pipeline {
                    steps {
 		     script {
 	                    if (provider == 'gcp') {
-				 sh "sh spark.sh  "topic2" "mytab" "mydb""
+				 sh "sh spark.sh  topic2 mytab mydb"
 			    }
 			    else 
 			    {
 				sh "sh spark.sh  "topic2" "mytab" "mydb""
 			    }
                          }
-                 }
+                 
 	    }
     }
 }
