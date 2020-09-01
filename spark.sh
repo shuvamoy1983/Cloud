@@ -14,8 +14,8 @@ export databasenm=$3
 
 export KafkaBootstrapIP=`kubectl get all -n kafka | grep -i mykafka-kafka-external-bootstrap | awk '{print $4}'`
 
-K8ip=`kubectl exec -it deployment.apps/spark-master -n $SPARK_NAMESPACE  -- /bin/bash -c printenv | grep -i KUBERNETES_PORT_443_TCP_ADDR | cut -d "="  -f2`
-#K8ip="k8s://https://${KUBERNET_IP::-1}"
+KUBERNET_IP=`kubectl exec -it deployment.apps/spark-master -n $SPARK_NAMESPACE  -- /bin/bash -c printenv | grep -i KUBERNETES_PORT_443_TCP_ADDR | cut -d "="  -f2`
+K8ip="k8s://https://${KUBERNET_IP}"
 #echo $K8ip
 port=443
 echo "Running the spark command $K8ip:$port"
