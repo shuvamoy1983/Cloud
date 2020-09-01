@@ -145,7 +145,7 @@ pipeline {
 			    }
 			    else 
 			    {
-				sh "sh spark.sh  "topic2" "mytab" "mydb""
+				sh "bash spark.sh  "topic2" "mytab" "mydb""
 			    }
                          }
                  
