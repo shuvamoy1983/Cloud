@@ -126,7 +126,7 @@ pipeline {
 			    else 
 			    {
 				 sh "aws eks --region us-east-1 update-kubeconfig --name eks"
-				 sh "kubectl create ns sparktst6"	    
+				 sh "kubectl create ns sparktst7"	    
                                  sh "helm install sparkhelm/. --generate-name -n sparktst5"
 				 sh "sleep 30"
 				
