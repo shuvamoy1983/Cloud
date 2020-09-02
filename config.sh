@@ -1,1 +1,2 @@
-vpcname="MYVPC"
+export vpcname="MYVPC"
+
