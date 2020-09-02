@@ -81,7 +81,7 @@ resource "aws_eks_node_group" "node" {
   node_group_name = "my-test-pool"
   subnet_ids = "${var.subnet_ids}"
   node_role_arn   = aws_iam_role.eks_nodes.arn
-  instance_types = ["m4.xlarge"]
+  instance_types = ["m4.large"]
   disk_size = 100
   scaling_config {
     desired_size = 3
