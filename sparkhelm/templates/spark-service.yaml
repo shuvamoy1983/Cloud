@@ -4,7 +4,7 @@ metadata:
   name: spark-master
   namespace: sparktst5
   labels:
-    name: spark-master
+    app: spark-master
 spec:
   ports:
     # the port that this service should serve on
@@ -15,4 +15,4 @@ spec:
     port: 7077
     targetPort: 7077
   selector:
-    name: spark-master
+    app: spark-master
