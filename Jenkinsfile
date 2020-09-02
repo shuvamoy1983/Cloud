@@ -1,4 +1,4 @@
-def provider = ''
+def provider = 'aws'
 // Conditionally define a variable 'impact'
 if (provider == 'aws') {
   script = "aws_bash.sh"
@@ -23,10 +23,19 @@ pipeline {
 	
     
     stages {
+	    
+	    stage ("Running Config") {
+	      when {
+                expression { params.ACTION == 'true' }
+               }
+              steps {
+	         sh "sh config.sh"
+                    }
+          }
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
-                expression { params.ACTION == 'true' }
+                expression { params.ACTION == 'false' }
                }
               steps {
 	         sh "sh ${script} ${provider}"
