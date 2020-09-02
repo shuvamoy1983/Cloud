@@ -26,7 +26,7 @@ pipeline {
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
-                expression { params.ACTION == 'true' }
+                expression { params.ACTION == 'false' }
                }
               steps {
 	         sh  " sh ${script} ${provider}"
