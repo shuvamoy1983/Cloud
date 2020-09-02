@@ -26,7 +26,7 @@ pipeline {
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
-                expression { params.ACTION == 'true' }
+                expression { params.ACTION == 'false' }
                }
               steps {
 	         sh "sh ${script} ${provider}"
@@ -35,7 +35,7 @@ pipeline {
 
            stage('Deploy strimzi') {
              when {
-                expression {  params.ACTION == 'true' }
+                expression {  params.ACTION == 'false' }
                  }
                
 		  steps {
@@ -63,7 +63,7 @@ pipeline {
 	    
 	   stage('Build Docker Image') {
             when {
-                expression { params.ACTION == 'true'}
+                expression { params.ACTION == 'false'}
             }
             steps {
                 script {
@@ -74,7 +74,7 @@ pipeline {
         }
           stage('Push Docker Image') {
             when {
-                 expression { params.ACTION == 'true' }
+                 expression { params.ACTION == 'false' }
             }
             steps {
                 script {
@@ -90,7 +90,7 @@ pipeline {
 	    
 	   stage('Push mysql Images') {
             when {
-                 expression { params.ACTION == 'true' }
+                 expression { params.ACTION == 'false' }
             }
             steps {
 		    script {
@@ -112,7 +112,7 @@ pipeline {
 	    }
 	      stage('deploy helm for spark') {
                 when {
-                 expression { params.ACTION == 'true' }
+                 expression { params.ACTION == 'false' }
                    }
                    steps {
 		     script {
