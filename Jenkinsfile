@@ -33,7 +33,7 @@ pipeline {
                     }
           }
 
-           stage('Deploy strimzi') {
+           stage('Deploy strimzi and kafka operator') {
              when {
                 expression {  params.ACTION == 'true' }
                  }
