@@ -29,7 +29,7 @@ pipeline {
                 expression { params.ACTION == 'true' }
                }
               steps {
-	         sh "sh config.sh"
+	         sh "source config.sh"
                     }
           }
 	   
