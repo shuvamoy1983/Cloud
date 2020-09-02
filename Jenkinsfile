@@ -29,8 +29,7 @@ pipeline {
                 expression { params.ACTION == 'true' }
                }
               steps {
-	         sh ''' #!/bin/bash 
-		     . ./config.sh '''
+	         load "config.groovy"
                     }
           }
 	   
