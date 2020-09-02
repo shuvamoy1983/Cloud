@@ -1,2 +1,2 @@
-vpcname="MYVPC"
+vpcname="MYVPCTEST"
 
