@@ -41,7 +41,7 @@ pipeline {
 		  steps {
 		      script {
 	                    if (provider == 'gcp') {
-			       sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
+			       sh "gcloud container clusters get-credentials eks --region us-central1 --project projectname"
 			       sh "kubectl create ns kafka"	    
                                sh "helm repo add strimzi https://strimzi.io/charts/"
                                sh "helm install strimzi/strimzi-kafka-operator --generate-name -n kafka"
@@ -95,7 +95,7 @@ pipeline {
             steps {
 		    script {
 	                    if (provider == 'gcp') {
-                                 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
+                                 sh "gcloud container clusters get-credentials eks --region us-central1 --project projectname"
 				 sh "kubectl apply -f mysql-deployment.yaml"
 				 sh "sleep 30"
 				 sh "kubectl exec -it deployment.apps/mysql mysql-client -- mysql -h mysql -ppassword  < mysql.sql"
@@ -117,7 +117,7 @@ pipeline {
                    steps {
 		     script {
 	                    if (provider == 'gcp') {
-                                 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
+                                 sh "gcloud container clusters get-credentials eks --region us-central1 --project projectname"
 				 sh "kubectl create ns sparktst5"	    
                                  sh "helm install sparkhelm/. --generate-name -n sparktst5"
 				 sh "sleep 30"
@@ -142,7 +142,7 @@ pipeline {
                    steps {
 		     script {
 	                    if (provider == 'gcp') {
-				 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
+				 sh "gcloud container clusters get-credentials eks --region us-central1 --project projectname"
 				 sh ''' #!/bin/bash
 				     sh spark.sh  "topic2" "mytab3" "mydb" '''
 				 
