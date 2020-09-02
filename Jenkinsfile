@@ -112,7 +112,7 @@ pipeline {
 	    }
 	      stage('deploy helm for spark') {
                 when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
                    }
                    steps {
 		     script {
@@ -137,7 +137,7 @@ pipeline {
 	    
 	     stage('Run spark Application') {
                 when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
                    }
                    steps {
 		     script {
