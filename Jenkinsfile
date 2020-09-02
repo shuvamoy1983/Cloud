@@ -30,7 +30,7 @@ pipeline {
                }
               steps {
 	         sh ''' #!/bin/bash 
-		     source config.sh '''
+		     . ./config.sh '''
                     }
           }
 	   
