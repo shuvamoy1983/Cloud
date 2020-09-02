@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    name: spark-master
-  name: spark-master
-  namespace: sparktst5
+ name: spark-master
+ labels:
+   app: spark-master
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+       app: spark-master
   template:
     metadata:
       labels:
-        name: spark-master
+        app: spark-master
     spec:
       serviceAccountName: spark-drv
       containers:
       - name : spark-master
         image: shuvamoy008/sparkops
         imagePullPolicy: "IfNotPresent"
-        name: spark-master
         ports:
         - containerPort: 7077
           protocol: TCP
