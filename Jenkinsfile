@@ -26,7 +26,7 @@ pipeline {
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
-                expression { params.ACTION == 'false' }
+                expression { params.ACTION == 'true' }
                }
               steps {
 	         sh "sh ${script} ${provider}"
@@ -35,7 +35,7 @@ pipeline {
 
            stage('Deploy strimzi') {
              when {
-                expression {  params.ACTION == 'false' }
+                expression {  params.ACTION == 'true' }
                  }
                
 		  steps {
@@ -63,17 +63,18 @@ pipeline {
 	    
 	   stage('Build Docker Image') {
             when {
-                expression { params.ACTION == 'false'}
+                expression { params.ACTION == 'true'}
             }
             steps {
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
+		    
                 }
             }
         }
           stage('Push Docker Image') {
             when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
             }
             steps {
                 script {
@@ -81,6 +82,7 @@ pipeline {
 			{
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
+			sh "sleep 60"
                         }
                      }
                  }
@@ -88,7 +90,7 @@ pipeline {
 	    
 	   stage('Push mysql Images') {
             when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
             }
             steps {
 		    script {
@@ -110,7 +112,7 @@ pipeline {
 	    }
 	      stage('deploy helm for spark') {
                 when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
                    }
                    steps {
 		     script {
@@ -118,7 +120,7 @@ pipeline {
                                  sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
 				 sh "kubectl create ns sparktst5"	    
                                  sh "helm install sparkhelm/. --generate-name -n sparktst5"
-				 sh "sleep 60"
+				 sh "sleep 30"
 				 
 			    }
 			    else 
@@ -126,7 +128,7 @@ pipeline {
 				 sh "aws eks --region us-east-1 update-kubeconfig --name eks"
 				 sh "kubectl create ns sparktst5"	    
                                  sh "helm install sparkhelm/. --generate-name -n sparktst5"
-				 sh "sleep 60"
+				 sh "sleep 30"
 				
 			    }
                          }
@@ -142,7 +144,7 @@ pipeline {
 	                    if (provider == 'gcp') {
 				 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
 				 sh ''' #!/bin/bash
-				     bash spark.sh  "topic2" "mytab3" "mydb" '''
+				     sh spark.sh  "topic2" "mytab3" "mydb" '''
 				 
 			    }
 			    else 
