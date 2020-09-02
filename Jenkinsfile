@@ -28,7 +28,7 @@ pipeline {
                 expression { params.ACTION == 'true' }
                }
               steps {
-	         sh  " echo $vpcname"
+	         sh  " sh echo $vpcname"
                     }
           }
 	   
