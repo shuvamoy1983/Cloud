@@ -1,2 +1,3 @@
 vpcnm="VPCTEST"
+export $vpcnm
 
