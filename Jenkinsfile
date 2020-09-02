@@ -29,9 +29,15 @@ pipeline {
                 expression { params.ACTION == 'true' }
                }
               steps {
-	         load "config.groovy"
-                    }
+	        sh '''
+                   ...
+                   source config.sh
+                   //Build
+                   //Test
+                   ...
+               '''
           }
+	    }
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
