@@ -23,25 +23,10 @@ pipeline {
 	
     
     stages {
-	    
-	    stage ("Running Config") {
-	      when {
-                expression { params.ACTION == 'true' }
-               }
-              steps {
-	        sh '''
-                   ...
-                   source config.sh
-                   //Build
-                   //Test
-                   ...
-               '''
-          }
-	    }
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
-                expression { params.ACTION == 'false' }
+                expression { params.ACTION == 'true' }
                }
               steps {
 	         sh "sh ${script} ${provider}"
