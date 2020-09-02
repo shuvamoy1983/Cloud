@@ -15,7 +15,7 @@ export databasenm=$3
 export KafkaBootstrapIP=`kubectl get all -n kafka | grep -i mykafka-kafka-external-bootstrap | awk '{print $4}'`
 export mySQLIP=`kubectl get svc | grep -i mysql | awk '{print $4}'`
 KUBERNET_IP=`kubectl exec -it deployment.apps/spark-master -n $SPARK_NAMESPACE  -- /bin/bash -c printenv | grep -i KUBERNETES_PORT_443_TCP_ADDR`
-KUBERNET_IP=`echo $KUBERNET_IP | cut -d "="  -f2 |awk '{print substr($1, 1, length($1)-1)}'`
+KUBERNET_IP=`echo $KUBERNET_IP | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}'`
 K8ip="k8s://https://${KUBERNET_IP}"
 
 #echo $K8ip
