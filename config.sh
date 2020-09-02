@@ -1,3 +1,2 @@
 vpcname="MYVPC"
-export $vpcname
 
