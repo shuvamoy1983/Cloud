@@ -52,6 +52,7 @@ pipeline {
 			      
 			       sh "sh awskubeconfig.sh ${workspace}/${provider}"
 			       sh "aws eks --region us-east-1 update-kubeconfig --name eks"
+			       sh "kubectl create ns kafka"	
 			       sh "helm repo add strimzi https://strimzi.io/charts/"
                                sh "helm install strimzi/strimzi-kafka-operator --generate-name -n kafka"
 			       sh "sleep 30"
