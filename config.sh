@@ -1,1 +1,0 @@
-vpcname='MYVPC'
