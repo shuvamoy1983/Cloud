@@ -29,7 +29,8 @@ pipeline {
                 expression { params.ACTION == 'true' }
                }
               steps {
-	         sh "sh ${script} ${provider}"
+	         sh ''' #!/bin/bash 
+		     ${script} ${provider} '''
                     }
           }
 
