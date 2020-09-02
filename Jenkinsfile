@@ -23,6 +23,14 @@ pipeline {
 	
     
     stages {
+	    stage ("run config") {
+	      when {
+                expression { params.ACTION == 'true' }
+               }
+              steps {
+	         sh  " echo $vpcname"
+                    }
+          }
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
