@@ -1,4 +1,4 @@
-def provider = 'gcp'
+def provider = 'aws'
 // Conditionally define a variable 'impact'
 if (provider == 'aws') {
   script = "aws_bash.sh"
@@ -26,7 +26,7 @@ pipeline {
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
-                expression { params.ACTION == 'false' }
+                expression { params.ACTION == 'true' }
                }
               steps {
 	         sh "sh ${script} ${provider}"
@@ -35,7 +35,7 @@ pipeline {
 
            stage('Deploy strimzi') {
              when {
-                expression {  params.ACTION == 'false' }
+                expression {  params.ACTION == 'true' }
                  }
                
 		  steps {
@@ -63,7 +63,7 @@ pipeline {
 	    
 	   stage('Build Docker Image') {
             when {
-                expression { params.ACTION == 'false'}
+                expression { params.ACTION == 'true'}
             }
             steps {
                 script {
@@ -74,7 +74,7 @@ pipeline {
         }
           stage('Push Docker Image') {
             when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
             }
             steps {
                 script {
@@ -90,7 +90,7 @@ pipeline {
 	    
 	   stage('Push mysql Images') {
             when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
             }
             steps {
 		    script {
@@ -112,7 +112,7 @@ pipeline {
 	    }
 	      stage('deploy helm for spark') {
                 when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
                    }
                    steps {
 		     script {
@@ -149,7 +149,9 @@ pipeline {
 			    }
 			    else 
 			    {
-				sh "bash spark.sh  "topic2" "mytab" "mydb""
+				sh "aws eks --region us-east-1 update-kubeconfig --name eks"    
+				 sh ''' #!/bin/bash
+				     sh spark.sh  "topic2" "mytab3" "mydb" '''
 			    }
                          }
                  
