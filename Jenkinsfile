@@ -1,4 +1,4 @@
-def provider = 'aws'
+def provider = 'gcp'
 // Conditionally define a variable 'impact'
 if (provider == 'aws') {
   script = "aws_bash.sh"
@@ -23,18 +23,10 @@ pipeline {
 	
     
     stages {
-	    stage ("run config") {
-	      when {
-                expression { params.ACTION == 'true' }
-               }
-              steps {
-	         sh  " sh echo $vpcname"
-                    }
-          }
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
-                expression { params.ACTION == 'false' }
+                expression { params.ACTION == 'true' }
                }
               steps {
 	         sh  " sh ${script} ${provider}"
@@ -43,7 +35,7 @@ pipeline {
 
            stage('Deploy strimzi and kafka operator') {
              when {
-                expression {  params.ACTION == 'false' }
+                expression {  params.ACTION == 'true' }
                  }
                
 		  steps {
@@ -72,7 +64,7 @@ pipeline {
 	    
 	   stage('Build Docker Image') {
             when {
-                expression { params.ACTION == 'false'}
+                expression { params.ACTION == 'true'}
             }
             steps {
                 script {
@@ -83,7 +75,7 @@ pipeline {
         }
           stage('Push Docker Image') {
             when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
             }
             steps {
                 script {
@@ -99,7 +91,7 @@ pipeline {
 	    
 	   stage('Push mysql Images') {
             when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
             }
             steps {
 		    script {
@@ -121,7 +113,7 @@ pipeline {
 	    }
 	      stage('deploy helm for spark') {
                 when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
                    }
                    steps {
 		     script {
