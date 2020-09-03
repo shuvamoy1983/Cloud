@@ -1,4 +1,4 @@
-def provider = ''
+def provider = 'aws'
 // Conditionally define a variable 'impact'
 if (provider == 'aws') {
   script = "aws_bash.sh"
@@ -35,7 +35,7 @@ pipeline {
 
            stage('Deploy strimzi and kafka operator') {
              when {
-                expression {  params.ACTION == 'false' }
+                expression {  params.ACTION == 'true' }
                  }
                
 		  steps {
@@ -64,7 +64,7 @@ pipeline {
 	    
 	   stage('Build Docker Image') {
             when {
-                expression { params.ACTION == 'false'}
+                expression { params.ACTION == 'true'}
             }
             steps {
                 script {
@@ -75,7 +75,7 @@ pipeline {
         }
           stage('Push Docker Image') {
             when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
             }
             steps {
                 script {
@@ -91,7 +91,7 @@ pipeline {
 	    
 	   stage('Push mysql Images') {
             when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
             }
             steps {
 		    script {
@@ -113,7 +113,7 @@ pipeline {
 	    }
 	      stage('deploy helm for spark') {
                 when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
                    }
                    steps {
 		     script {
