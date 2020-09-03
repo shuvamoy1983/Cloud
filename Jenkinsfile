@@ -26,7 +26,7 @@ pipeline {
 	   
 	   stage ("Running Terraform for Cloud Provisioning") {
 	      when {
-                expression { params.ACTION == 'false' }
+                expression { params.ACTION == 'true' }
                }
               steps {
 	         sh  " sh ${script} ${provider}"
@@ -35,18 +35,19 @@ pipeline {
 
            stage('Deploy strimzi and kafka operator') {
              when {
-                expression {  params.ACTION == 'false' }
+                expression {  params.ACTION == 'true' }
                  }
                
 		  steps {
 		      script {
 	                    if (provider == 'gcp') {
-			       sh "gcloud container clusters get-credentials eks --region us-central1 --project poc"
+			       sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
 			       sh "kubectl create ns kafka"	    
                                sh "helm repo add strimzi https://strimzi.io/charts/"
                                sh "helm install strimzi/strimzi-kafka-operator --generate-name -n kafka"
 		               sh "sleep 30"
                                sh "helm install kafkachart/. --generate-name -n kafka"
+			       sh "sleep 60"
                                  }
 		            else {
 			      
@@ -64,7 +65,7 @@ pipeline {
 	    
 	   stage('Build Docker Image') {
             when {
-                expression { params.ACTION == 'false'}
+                expression { params.ACTION == 'true'}
             }
             steps {
                 script {
@@ -75,7 +76,7 @@ pipeline {
         }
           stage('Push Docker Image') {
             when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
             }
             steps {
                 script {
@@ -91,12 +92,12 @@ pipeline {
 	    
 	   stage('Push mysql Images') {
             when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
             }
             steps {
 		    script {
 	                    if (provider == 'gcp') {
-                                 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc"
+                                 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
 				 sh "kubectl apply -f mysql-deployment.yaml"
 				 sh "sleep 30"
 				 sh "kubectl exec -it deployment.apps/mysql mysql-client -- mysql -h mysql -ppassword  < mysql.sql"
@@ -113,12 +114,12 @@ pipeline {
 	    }
 	      stage('deploy helm for spark') {
                 when {
-                 expression { params.ACTION == 'false' }
+                 expression { params.ACTION == 'true' }
                    }
                    steps {
 		     script {
 	                    if (provider == 'gcp') {
-                                 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc"
+                                 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
 				 sh "kubectl create ns sparktst5"	    
                                  sh "helm install sparkhelm/. --generate-name -n sparktst5"
 				 sh "sleep 120"
@@ -143,7 +144,7 @@ pipeline {
                    steps {
 		     script {
 	                    if (provider == 'gcp') {
-				 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc"
+				 sh "gcloud container clusters get-credentials eks --region us-central1 --project poc-sed-shared-jetstream-sb"
 				 sh ''' #!/bin/bash
 				     sh spark.sh  "topic2" "mytab3" "mydb" '''
 				 
