@@ -1,4 +1,4 @@
-def provider = ''
+def provider = 'gcp'
 // Conditionally define a variable 'impact'
 if (provider == 'aws') {
   script = "aws_bash.sh"
