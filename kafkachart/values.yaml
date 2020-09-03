@@ -1,19 +1,19 @@
 metadata:
         name: mykafka
-replicaCount: 3
+replicaCount: 2
 resources:
         requests:
-          memory: 8Gi
-          cpu: "6"
+          memory: 3Gi
+          cpu: "2"
         limits:
-          memory: 8Gi
-          cpu: "6"
+          memory: 4Gi
+          cpu: "3"
 storage:
       type: jbod
       volumes:
       - id: 0
         type: persistent-claim
-        size: 100Gi
+        size: 15Gi
 config:
   insyncReplicas: 2
 
@@ -32,5 +32,5 @@ zookeeper:
         replicaCount: 1
         storage:
           type: persistent-claim
-          size: 40Gi
+          size: 10Gi
 
