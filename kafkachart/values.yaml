@@ -1,13 +1,13 @@
 metadata:
         name: mykafka
-replicaCount: 2
+replicaCount: 3
 resources:
         requests:
-          memory: 3Gi
-          cpu: "2"
+          memory: 8Gi
+          cpu: "6"
         limits:
-          memory: 4Gi
-          cpu: "3"
+          memory: 8Gi
+          cpu: "6"
 storage:
       type: jbod
       volumes:
