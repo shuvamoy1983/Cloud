@@ -13,7 +13,7 @@ storage:
       volumes:
       - id: 0
         type: persistent-claim
-        size: 15Gi
+        size: 25Gi
 config:
   insyncReplicas: 2
 
@@ -32,5 +32,5 @@ zookeeper:
         replicaCount: 1
         storage:
           type: persistent-claim
-          size: 10Gi
+          size: 15Gi
 
