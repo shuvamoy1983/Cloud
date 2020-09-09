@@ -4,8 +4,8 @@ metadata:
   name: {{ .Values.metadata.name }}
 spec:
   kafka:
-    affinity:
-{{ toYaml .Values.affinity | indent 8 }}
+  #affinity:
+  #{{ toYaml .Values.affinity | indent 8 }}
     replicas: {{ .Values.replicaCount }}
     resources:
 {{ toYaml .Values.resources | indent 8 }}

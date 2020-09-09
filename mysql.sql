@@ -1,3 +1,4 @@
 create database mydb;
-CREATE TABLE mydb.mytab3 ( id int, name varchar(20), salary int );
+CREATE TABLE mydb.emp ( id int, Name varchar(20), Salary int );
+CREATE TABLE mydb.dept ( DEPT_ID int, Dept_Name varchar(20), EMP_ID int );
 GRANT DROP,CREATE,ALTER,SELECT,INSERT,UPDATE,DELETE,LOCK TABLES,EXECUTE ON *.* TO mysql@'%';

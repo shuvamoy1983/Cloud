@@ -58,9 +58,11 @@ ENV PATH="/opt/spark/bin:${PATH}"
 RUN echo "export SPARK_DIST_CLASSPATH=$(hadoop classpath)" >> /opt/spark/conf/spark-env.sh
 
 
-ADD mysql-connector-java-5.1.26.jar spark-hadoop-cloud_2.11-2.3.2.3.1.0.6-1.jar guava-23.0.jar spark-bigquery-with-dependencies_2.11-0.14.0-beta.jar spark-sql-kafka-0-10_2.11-2.4.0.jar kafka-clients-2.2.1.jar avro-1.8.0.jar kafka_2.11-2.3.0.jar spark-avro_2.11-2.4.0.jar elasticsearch-spark-20_2.11-6.8.7.jar /opt/spark/jars/
+ADD  config-1.3.4.jar mysql-connector-java-5.1.26.jar spark-hadoop-cloud_2.11-2.3.2.3.1.0.6-1.jar guava-23.0.jar spark-bigquery-with-dependencies_2.11-0.14.0-beta.jar spark-sql-kafka-0-10_2.11-2.4.0.jar kafka-clients-2.2.1.jar avro-1.8.0.jar kafka_2.11-2.3.0.jar spark-avro_2.11-2.4.0.jar elasticsearch-spark-20_2.11-6.8.7.jar /opt/spark/jars/
 
-ADD mygcp-1.0-SNAPSHOT.jar /opt/spark/examples/jars/
+#ADD spark-cassandra-connector_2.11-2.4.2.jar /opt/spark/jars/
+
+ADD GCP-1.0-SNAPSHOT-jar-with-dependencies.jar mygcp-1.0-SNAPSHOT.jar /opt/spark/examples/jars/
 ADD core-site.xml /opt/hadoop/etc/hadoop/
 ADD gcs-connector-latest-hadoop2.jar /opt/spark/jars/
 
